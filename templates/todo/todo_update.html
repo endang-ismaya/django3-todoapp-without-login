@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="text-center">
+        <p class="lead mt-3">
+            {% if request.user.is_authenticated %}
+                Hello {{ request.user.username }}.
+            {% else %}
+                Hello anonymous user.
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="col-4 offset-4">
+        <a href="{% url 'todo:todo_list' %}" class="btn btn-secondary mb-4">Go back to home</a>
+        <h4>Update todo</h4>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock %}

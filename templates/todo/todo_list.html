@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="text-center">
+        <p class="lead mt-3">
+            {% if request.user.is_authenticated %}
+                Hello {{ request.user.username }}.
+            {% else %}
+                Hello anonymous user.
+            {% endif %}
+        </p>
+
+        <div>
+            <a href="{% url 'todo:todo_create' %}" class="btn btn-outline-primary">Create a todo</a>
+        </div>
+    </div>
+    <div class="col-4 offset-4">
+        {% for todo in todos %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <a href="{% url 'todo:todo_detail' todo.id %}"><h4>{{ todo.name }}</h4></a>
+                </div>
+                <div class="card-body">
+                    <p>It's due {{ todo.due_date }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
